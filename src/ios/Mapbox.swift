@@ -106,8 +106,8 @@ import MapboxMaps
             print("\(Float(progress.completedResourceCount) / Float(progress.requiredResourceCount))")
             let progress = Double(progress.completedResourceCount) / Double(progress.requiredResourceCount)
             print("progress -> \(progress)")
-            pluginResult.setKeepCallbackAs(true)
             pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: progress)
+            pluginResult.setKeepCallbackAs(true)
         }, completion: { result in
             switch result {
             case .success(_):

@@ -48,6 +48,8 @@
         <source-file src="src/ios/libs/MapboxMobileEvents.xcframework" framework="true"/>
         <source-file src="src/ios/libs/Turf.xcframework" framework="true"/>
         <source-file src="src/ios/Mapbox.swift" />
+        <resource-file src="src/ios/libs/Mapbox.bundle" />
+        <resource-file src="src/ios/libs/Settings.bundle" />
       </platform>
     
 </plugin>
