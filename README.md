@@ -1,2 +1,2 @@
-# cordova-plugin-mapbox
-cordova-plugin-mapbox
+# Mapbox
+
