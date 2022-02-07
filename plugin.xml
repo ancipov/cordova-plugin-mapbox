@@ -18,7 +18,7 @@
       </engines>
 
     
-    <repo>https://git.exadel.com/exadel-pma/mapbox.git</repo>
+    <repo>https://github.com/ancipov/cordova-plugin-mapbox.git</repo>
     
     <preference name="ACCESS_TOKEN" />
     <dependency id="cordova-plugin-add-swift-support" version="2.0.2"/>
