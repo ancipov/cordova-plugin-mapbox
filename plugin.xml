@@ -42,11 +42,11 @@
           <string>$ACCESS_TOKEN</string>
         </config-file>
         
-        <source-file src="src/ios/libs/MapboxCommon.xcframework" framework="true"/>
-        <source-file src="src/ios/libs/MapboxCoreMaps.xcframework" framework="true"/>
-        <source-file src="src/ios/libs/MapboxMaps.xcframework" framework="true"/>
-        <source-file src="src/ios/libs/MapboxMobileEvents.xcframework" framework="true"/>
-        <source-file src="src/ios/libs/Turf.xcframework" framework="true"/>
+        <framework src="src/ios/libs/MapboxCommon.xcframework" framework="true" custom="true" embed="true" />
+        <framework src="src/ios/libs/MapboxCoreMaps.xcframework" framework="true" custom="true" embed="true" />
+        <framework src="src/ios/libs/MapboxMaps.xcframework" framework="true" custom="true" embed="true" />
+        <framework src="src/ios/libs/MapboxMobileEvents.xcframework" framework="true" custom="true" embed="true" />
+        <framework src="src/ios/libs/Turf.xcframework" framework="true" custom="true" embed="true" />
         <source-file src="src/ios/Mapbox.swift" />
 <!--        <resource-file src="src/ios/libs/Mapbox.bundle" />-->
 <!--        <resource-file src="src/ios/libs/Settings.bundle" />-->

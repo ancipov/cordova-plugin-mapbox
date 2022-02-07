@@ -34,12 +34,23 @@ under the License.
             
             <button onclick="show()">show Map</button>
             <button onclick="addMarker()">add marker</button>
+            <button onclick="saveTile()">save tile</button>
             
         </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script><script type="text/javascript" src="cordova.js"></script>
         <script>
+            
+            function saveTile() {
+                Mapbox.saveTile(
+                                function (result) {
+                    console.log(JSON.stringify(result));
+                },
+                                function (error) {
+                    alert(error);
+                });
+            }
             
             function addMarker() {
                 Mapbox.addMarkerToCenter({},
@@ -76,4 +87,5 @@ under the License.
         </script>
     </body>
 </html>
+
 
