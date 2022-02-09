@@ -1,22 +1,5 @@
 <!DOCTYPE html>
-<!--
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
--->
 <html>
     <head>
         <meta charset="utf-8"/>
@@ -35,29 +18,57 @@ under the License.
             <button onclick="show()">show Map</button>
             <button onclick="addMarker()">add marker</button>
             <button onclick="saveTile()">save tile</button>
-            
+            <button onclick="removeAllMarkers()">remove all markers</button>
+            <button onclick="removeMarkerById()">remove marker by id</button>
+
+
         </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script><script type="text/javascript" src="cordova.js"></script>
         <script>
             
+            function removeMarkerById() {
+                Mapbox.removeMarkerById({"id" : "some-id"},
+                        function (result) {
+                            alert("Marker removed")
+                        },
+                        function (error) {
+                            alert("marker not found");
+                        }
+                                        
+                                        );
+            }
+            
+            function removeAllMarkers() {
+                Mapbox.removeAllMarkers(
+                function (result) {
+                    alert("Markers removed")
+                },
+                function (error) {
+                    alert(error);
+                }
+                                        );
+            }
+            
             function saveTile() {
                 Mapbox.saveTile(
-                                function (result) {
+                function (result) {
                     console.log(JSON.stringify(result));
+                    alert("Tiles saved")
                 },
-                                function (error) {
+                function (error) {
                     alert(error);
                 });
             }
             
             function addMarker() {
-                Mapbox.addMarkerToCenter({},
-                                function (result) {
-                    console.log(JSON.stringify(result));
+                Mapbox.addMarkerToCenter(
+                function (result) {
+                    alert("Added markers ids: " + JSON.stringify(result))
+                    
                 },
-                                function (error) {
+                function (error) {
                     alert(error);
                 });
             }
@@ -65,27 +76,32 @@ under the License.
             
             function show() {
                 Mapbox.showMap({
-                    style: 'emerald',
                     margins: {
                         'left': 0,
                         'right': 0,
                         'top': 0,
-                        'bottom': 100
+                        'bottom': 100,
+                        'height': 600
                     },
                     center: {
-                        lat: 52.3702160,
-                        lng: 4.8951680
-                    }
+                        lat: 53.896454,
+                        lon: 27.548004
+                    },
+                    zoom: 4
                 },
-                               function (result) {
-                    console.log(JSON.stringify(result));
+                function (result) {
+                    Mapbox.addMapTouchCallback(function (callback) {
+                      alert("Map selected: " + JSON.stringify(callback));
+                    });
+                    
                 },
-                               function (error) {
+                
+                function (error) {
                     alert(error);
-                });
+                }
+                               );
             }
         </script>
     </body>
 </html>
-
 
