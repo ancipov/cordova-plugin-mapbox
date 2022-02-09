@@ -23,7 +23,10 @@ module.exports = {
     
     removeAllMarkers: function (successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "Mapbox", "removeAllMarkers", []);
+    },
+    
+    removeMarkerById: function (options, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "Mapbox", "removeMarkerById", [options]);
     }
-    
-    
+
 };

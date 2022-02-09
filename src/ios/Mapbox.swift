@@ -91,6 +91,18 @@ import MapboxMaps
         self.commandDelegate!.send(pluginResult, callbackId: command.callbackId)
     }
     
+    @objc(removeMarkerById:)
+    func removeMarkerById(command: CDVInvokedUrlCommand) {
+        guard let args = command.arguments[0] as? Dictionary<String, String> , let id = args["id"], let index = pointAnnotationManager.annotations.firstIndex(where: {$0.id == id}) else {
+            let pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR)
+            self.commandDelegate!.send(pluginResult, callbackId: command.callbackId)
+            return
+        }
+        pointAnnotationManager.annotations.remove(at: index)
+        let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK)
+        self.commandDelegate!.send(pluginResult, callbackId: command.callbackId)
+    }
+    
     @objc(addMarkers:)
     func addMarkers(command: CDVInvokedUrlCommand) {
         guard let annotations: Array = command.arguments[0] as? Array<Any> else {
@@ -161,3 +173,4 @@ import MapboxMaps
     }
     
 }
+
