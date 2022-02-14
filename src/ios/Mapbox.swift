@@ -114,17 +114,15 @@ import MapboxMaps
     
     private func putMarkersOnTheMap(annotations: [Any], id: String) {
         self.commandDelegate.run {
+            let bundlePath = Bundle.main.path(forResource: "Mapbox", ofType: "bundle")!
+            let imageName = Bundle(path: bundlePath)?.path(forResource: "default_marker", ofType: "png")
+            let image = UIImage(contentsOfFile: imageName!)
             var pointAnnotations = [PointAnnotation]()
             annotations.forEach { item in
                 let marker = item  as! Dictionary<String, Any>
                 if let lat = marker["lat"] as? Double, let long = marker["lon"] as? Double {
                     var annotation = PointAnnotation(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: long))
-                    if #available(iOS 13.0, *) {
-                        annotation.image = .init(image: UIImage(systemName: "mappin") ?? UIImage(), name: "mappin")
-                    } else {
-                        // Fallback on earlier versions
-                    }
-                    
+                    annotation.image = .init(image: image ?? UIImage(), name: "default_marker")
                     pointAnnotations.append(annotation)
                 }
             }
