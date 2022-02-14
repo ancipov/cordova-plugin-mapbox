@@ -36,7 +36,7 @@ Mapbox.showMap({
                 function (error) {},
                 );
 ```
-#### Mapbox.addMarkers
+### Mapbox.addMarkers
 - {dictionary} params - markers to add
 - {function} success - callback function which takes parameter data that will be invoked on successs
 - {function} error - callback function which takes a parameter error which will be invoked on failure
@@ -49,8 +49,6 @@ Mapbox.showMap({
 Example: 
 function (options, successCallback, errorCallback)
 - successCallback - return array of added markers ids (["id-xxxxxxx, id-xxxxxxxxxx"])
-Example: 
-function (options, successCallback, errorCallback)
 ```
 Mapbox.addMarkers(
                  { markers: [{"lat": 21.445555, "lon": 23.343434}, 
@@ -60,7 +58,7 @@ Mapbox.addMarkers(
                  function (error) {},
                  );
 ```
-#### Mapbox.saveTile
+### Mapbox.saveTile
 Save tile with coordinate in map center and zoom level from 0 to 12
 - {function} success - callback function which takes parameter data that will be invoked on successs
 - {function} error - callback function which takes a parameter error which will be invoked on failure
@@ -78,14 +76,14 @@ Mapbox.saveTile(
                 );
 ```
 
-#### Mapbox.addMarkerToCenter
+### Mapbox.addMarkerToCenter
 Add marker to center on the map
 - {function} success - callback function which takes parameter data that will be invoked on successs
 - {function} error - callback function which takes a parameter error which will be invoked on failure
 
 Example: 
 - successCallback - return array of added markers ids (["id-xxxxxxx])
-function (successCallback, errorCallback)
+- 
 ```
 Mapbox.addMarkerToCenter(
                 function (result) {
@@ -96,7 +94,7 @@ Mapbox.addMarkerToCenter(
                 }
                 );
 ```
-#### Mapbox.addMapTouchCallback
+### Mapbox.addMapTouchCallback
 Subscribe to map tap
 - callback - will return coordinate of tap ({"lon" : 21.343434, "lat: 22.345434"})
 Example: 
@@ -108,7 +106,7 @@ Mapbox.addMapTouchCallback(
                 }
                 );
 ```
-#### Mapbox.removeAllMarkers
+### Mapbox.removeAllMarkers
 Remove all markers from the map
 - {function} success - callback function which takes parameter data that will be invoked on successs
 - {function} error - callback function which takes a parameter error which will be invoked on failure
@@ -126,12 +124,12 @@ Mapbox.removeAllMarkers(
                 );
 ```
 
-#### Mapbox.removeMarkerById
+### Mapbox.removeMarkerById
 - {dictionary} params - marker to delete
 - {function} success - callback function which takes parameter data that will be invoked on successs
 - {function} error - callback function which takes a parameter error which will be invoked on failure
 
-#### Supported Options
+### Supported Options
 | property | value | description |
 | ------ | ------ |------ |
 | id | "marker_id" | marker id for removing
