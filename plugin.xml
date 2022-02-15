@@ -52,4 +52,27 @@
 
       </platform>
     
+      <platform name="android">
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="Mapbox">
+				<param name="android-package" value="io.appery.plugin.mapbox.Mapbox" />
+			</feature>
+		</config-file>
+		<config-file parent="/*" target="AndroidManifest.xml">
+			<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+      		<uses-permission android:name="android.permission.INTERNET" />
+      		<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+		    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+      		<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+      		<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+		</config-file>
+    	<framework src="src/android/mapbox.gradle" custom="true" type="gradleReference"/>
+   		<source-file src="src/android/Mapbox.java" target-dir="io/appery/plugin/mapbox"/>
+		<feature name="Echo">
+		    <param name="android-package" value="io.appery.plugin.mapbox" />
+		    <param name="onload" value="true" />
+		</feature>
+	  </platform>
+
+
 </plugin>
