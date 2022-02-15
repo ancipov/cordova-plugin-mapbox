@@ -60,7 +60,7 @@ Mapbox.addMarkers(
 ```
 ### Mapbox.saveTile
 Save tile with coordinate in map center and zoom level from 0 to 12
-- {function} success - callback function which takes parameter data that will be invoked on successs
+- {function} success - callback function which takes parameter data that will be invoked on successs (will return progress value from 0.0 to 1.0, 1.0 mean downloading finished)
 - {function} error - callback function which takes a parameter error which will be invoked on failure
 
 Example: 
