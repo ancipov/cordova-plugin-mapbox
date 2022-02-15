@@ -157,6 +157,7 @@ import MapboxMaps
             print("progress -> \(progress)")
             pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: progress)
             pluginResult.setKeepCallbackAs(true)
+            self.commandDelegate!.send(pluginResult, callbackId: command.callbackId)
         }, completion: { result in
             switch result {
             case .success(_):
