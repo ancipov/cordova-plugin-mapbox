@@ -1,4 +1,4 @@
-package io.appery.plugin.mapbox.Mapbox;
+package io.appery.plugin.mapbox;
 
 import android.util.DisplayMetrics;
 import android.util.Log;
