@@ -51,13 +51,17 @@ public class Mapbox extends CordovaPlugin {
         Log.e("Mapbox", "initialize");
 
         ResourceOptions.Builder builder = new ResourceOptions.Builder();
-
-        mapInitOptions = new MapInitOptions(cordova.getContext(), builder.build());
+        ResourceOptions options = builder.accessToken(ACCESS_TOKEN)
+                .build();
+        mapInitOptions = new MapInitOptions(cordova.getContext(), options);
 
         DisplayMetrics metrics = new DisplayMetrics();
         cordova.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         retinaFactor = metrics.density;
 
+        String token = mapInitOptions.getResourceOptions().getAccessToken();
+
+        Log.d("", "");
     }
 
     @Override
@@ -76,8 +80,10 @@ public class Mapbox extends CordovaPlugin {
             return true;
         } else if (action.equals("removeMarkerById")) {
             removeMarkerById(args, callbackContext);
+            return true;
         } else if (action.equals("addMarkers")) {
             addMarkers(args, callbackContext);
+            return true;
         }
         return false;
     }
@@ -102,45 +108,45 @@ public class Mapbox extends CordovaPlugin {
 
     public void showMap(JSONArray args, CallbackContext callbackContext) {
         tileStore =  TileStore.create();
-        MapInitOptions myMapInitOptions = new MapInitOptions(cordova.getContext());
 
         cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mapView = new MapView(webView.getContext());
+                mapView = new MapView(webView.getContext(), mapInitOptions);
                 final FrameLayout layout = (FrameLayout) webView.getView().getParent();
 
                 try {
-                final JSONObject options = args.getJSONObject(0);
-                final String style = getStyle(options.optString("style"));
+                    final JSONObject options = args.getJSONObject(0);
+                    final String style = getStyle(options.optString("style"));
 
-                final JSONObject margins = options.isNull("margins") ? null : options.getJSONObject("margins");
-                final int left = applyRetinaFactor(margins == null || margins.isNull("left") ? 0 : margins.getInt("left"));
-                final int right = applyRetinaFactor(margins == null || margins.isNull("right") ? 0 : margins.getInt("right"));
-                final int top = applyRetinaFactor(margins == null || margins.isNull("top") ? 0 : margins.getInt("top"));
-                final int bottom = applyRetinaFactor(margins == null || margins.isNull("bottom") ? 0 : margins.getInt("bottom"));
+                    final JSONObject margins = options.isNull("margins") ? null : options.getJSONObject("margins");
+                    final int left = applyRetinaFactor(margins == null || margins.isNull("left") ? 0 : margins.getInt("left"));
+                    final int right = applyRetinaFactor(margins == null || margins.isNull("right") ? 0 : margins.getInt("right"));
+                    final int top = applyRetinaFactor(margins == null || margins.isNull("top") ? 0 : margins.getInt("top"));
+                    final int bottom = applyRetinaFactor(margins == null || margins.isNull("bottom") ? 0 : margins.getInt("bottom"));
 
-                final JSONObject center = options.isNull("center") ? null : options.getJSONObject("center");
+                    final JSONObject center = options.isNull("center") ? null : options.getJSONObject("center");
 
                     Double zoom = options.isNull("zoomLevel") ? 10 : options.getDouble("zoomLevel");
                     float zoomLevel = zoom.floatValue();
                     if (center != null) {
                         final double lat = center.getDouble("lat");
-                        final double lng = center.getDouble("lng");
+                        final double lng = center.getDouble("lon");
                      } else {
                         if (zoomLevel > 18.0) {
                             zoomLevel = 18.0f;
                         }
                     }
 
-                // position the mapView overlay
-                int webViewWidth = webView.getView().getWidth();
-                int webViewHeight = webView.getView().getHeight();
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(webViewWidth - left - right, webViewHeight - top - bottom);
-                params.setMargins(left, top, right, bottom);
-                mapView.setLayoutParams(params);
+                    // position the mapView overlay
+                    int webViewWidth = webView.getView().getWidth();
+                    int webViewHeight = webView.getView().getHeight();
+                    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(webViewWidth - left - right, webViewHeight - top - bottom);
+                    params.setMargins(left, top, right, bottom);
 
-            } catch (JSONException e) {
+                    mapView.setLayoutParams(params);
+            }
+                catch (JSONException e) {
                 callbackContext.error(e.getMessage());
                 return;
             }
@@ -176,7 +182,6 @@ public class Mapbox extends CordovaPlugin {
         pointAnnotationManager.getAnnotations().remove(index);
         callbackContext.success();
     }
-
 
     private void addMarkers(JSONArray args, CallbackContext callbackContext) {
         cordova.getActivity().runOnUiThread(new Runnable() {
