@@ -43,6 +43,7 @@ import com.mapbox.maps.plugin.annotation.AnnotationConfig;
 import com.mapbox.maps.plugin.annotation.AnnotationPlugin;
 import com.mapbox.maps.plugin.annotation.AnnotationPluginImplKt;
 import com.mapbox.maps.plugin.annotation.AnnotationType;
+import com.mapbox.maps.plugin.annotation.generated.PointAnnotation;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions;
 
@@ -359,19 +360,28 @@ public class Mapbox extends CordovaPlugin {
     }
 
     public void removeMarkerById(@NonNull JSONArray args, CallbackContext callbackContext){
-        int index = 0;
+        long id = -1;
 
         try {
             final JSONObject options = args.getJSONObject(0);
-            int id = options.getInt("id");
-            //TODO get index from args
+            id = options.getInt("id");
         } catch (JSONException e){
             callbackContext.error(e.getMessage());
             return;
         }
-
-        pointAnnotationManager.getAnnotations().remove(index);
-        callbackContext.success();
+        boolean removed = false;
+        List<PointAnnotation> pointAnnotations = pointAnnotationManager.getAnnotations();
+        for (PointAnnotation pointAnnotation: pointAnnotations) {
+            if (pointAnnotation.getId() == id) {
+                pointAnnotationManager.delete(pointAnnotation);
+                removed = true;
+                break;
+            }
+        }
+        if (removed)
+            callbackContext.success();
+        else
+            callbackContext.error("Marker with such id not exists");
     }
 
     private void addMarkers(JSONArray args, CallbackContext callbackContext) {
