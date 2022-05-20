@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-mapbox",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "cordova_name": "Mapbox",
   "license": "MIT",
   "repo": "https://github.com/ancipov/cordova-plugin-mapbox.git",
